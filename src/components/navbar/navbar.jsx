@@ -6,7 +6,7 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          MyApp
+          AgriConnect Nepal
         </Link>
         <ul className="nav-menu">
           <li className="nav-item">
