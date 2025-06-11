@@ -4,8 +4,8 @@ const Home = () => {
     return (
         <div className="home-container">
             <main className="main-content">
-                <h1>Welcome to My React App</h1>
-                <p>This is a modern React application with separate components.</p>
+                <h1>Welcome to AgriConnect Nepal</h1>
+                <p>A platform connecting farmers with agricultural resources and services.</p>
                 <button className="cta-button">Get Started</button>
             </main>
         </div>
