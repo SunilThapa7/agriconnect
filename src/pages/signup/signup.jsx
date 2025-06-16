@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
+import axios from 'axios';
+import { baseUrl } from '../../helper/common';
 
 const Signup = ({ setIsAuthenticated }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: 'user',  // Default role
+        gender: 'other'  // Default gender
     });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,47 +64,42 @@ const Signup = ({ setIsAuthenticated }) => {
 
         if (validateForm()) {
             setIsSubmitting(true);
+            setErrors({});            try {
+                const response = await axios.post(`${baseUrl}/authUser/signUp`, {
+                    name: formData.name,
+                    role: formData.role,
+                    email: formData.email,
+                    password: formData.password,
+                    gender: formData.gender
+                });
 
-            try {
-                // Simulate API call to your backend
-                const response = await mockSignupAPI(formData);
-
-                // On successful signup
-                localStorage.setItem('isAuthenticated', 'true');
-                localStorage.setItem('user', JSON.stringify(response.user));
-                setIsAuthenticated(true);
-                navigate('/dashboard');
+                // The backend returns the user data directly in response.data
+                if (response.data && response.data.id) {
+                    // Store user data 
+                    const userData = {
+                        id: response.data.id,
+                        name: response.data.name,
+                        email: response.data.email,
+                        role: response.data.role
+                    };
+                    localStorage.setItem('isAuthenticated', 'true');
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    setIsAuthenticated(true);
+                    navigate('/dashboard');
+                } else {
+                    setErrors({
+                        form: 'Registration failed. Please try again.'
+                    });
+                }
             } catch (error) {
+                const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
                 setErrors({
-                    ...errors,
-                    form: error.message || 'Signup failed. Please try again.'
+                    form: errorMessage
                 });
             } finally {
                 setIsSubmitting(false);
             }
         }
-    };
-
-    // Mock API function - replace with actual API call
-    const mockSignupAPI = async (data) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // Simulate successful response
-                if (data.email && data.password) {
-                    resolve({
-                        success: true,
-                        user: {
-                            id: '123',
-                            name: data.name,
-                            email: data.email
-                        },
-                        token: 'mock-auth-token'
-                    });
-                } else {
-                    reject(new Error('Registration failed'));
-                }
-            }, 1500);
-        });
     };
 
     return (
@@ -169,6 +168,22 @@ const Signup = ({ setIsAuthenticated }) => {
                         {errors.confirmPassword && (
                             <span className="error-text">{errors.confirmPassword}</span>
                         )}
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="gender">Gender</label>
+                        <select
+                            id="gender"
+                            name="gender"
+                            value={formData.gender}
+                            onChange={handleChange}
+                            className={errors.gender ? 'error' : ''}
+                        >
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                        {errors.gender && <span className="error-text">{errors.gender}</span>}
                     </div>
 
                     <button
