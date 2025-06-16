@@ -9,6 +9,7 @@ import Login from './pages/login/login';
 import Home from './pages/homepage/homePage';
 import PrivateRoute from './helper/privateRoute';
 import Signup from './pages/signup/signup';
+import AgriMarket from './pages/agrimarket/agriMarket';
 
 const App = () => {
   const navigate = useNavigate();
@@ -50,10 +51,10 @@ const App = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={< Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />          <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
           <Route path="/signup" element={<Signup setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/agrimarket" element={<AgriMarket />} />
 
           <Route path="/dashboard" element={
             <PrivateRoute>
