@@ -1,37 +1,52 @@
-import { Link } from 'react-router-dom';
-import './navbar.css'; // Assuming you have a CSS file for styling the navbar
+import { Link, useLocation } from 'react-router-dom';
+import './navbar.css';
 
 const Navbar = ({ isAuthenticated, handleLogout }) => {
+  const location = useLocation();
   return (
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
           AgriConnect Nepal
         </Link>
-        <ul className="nav-menu">
-          <li className="nav-item">
-            <Link to="/" className="nav-link">
+        <ul className="nav-menu">          <li className="nav-item">
+            <Link 
+              to="/" 
+              className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            >
               Home
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/about" className="nav-link">
+            <Link 
+              to="/about" 
+              className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
+            >
               About
             </Link>
-          </li>          <li className="nav-item">
-            <Link to="/contact" className="nav-link">
+          </li>
+          <li className="nav-item">
+            <Link 
+              to="/contact" 
+              className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}
+            >
               Contact
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/agrimarket" className="nav-link">
+            <Link 
+              to="/agrimarket" 
+              className={`nav-link ${location.pathname === '/agrimarket' ? 'active' : ''}`}
+            >
               AgriMarket
             </Link>
           </li>
           {isAuthenticated ? (
-            <>
-              <li className="nav-item">
-                <Link to="/dashboard" className="nav-link">
+            <>              <li className="nav-item">
+                <Link 
+                  to="/dashboard" 
+                  className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+                >
                   Dashboard
                 </Link>
               </li>
@@ -43,7 +58,10 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
             </>
           ) : (
             <li className="nav-item">
-              <Link to="/login" className="nav-link">
+              <Link 
+                to="/login" 
+                className={`nav-link ${location.pathname === '/login' ? 'active' : ''}`}
+              >
                 Login/Signup
               </Link>
             </li>

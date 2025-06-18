@@ -85,3 +85,104 @@
 .btn.secondary:hover {
   background-color: rgba(30, 64, 175, 0.8);
 }
+
+/* AgriMarket Preview Section */
+.agrimarket-preview {
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 2rem;
+}
+
+.preview-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.preview-header h2 {
+  font-size: 2rem;
+  color: #1e40af;
+  margin-bottom: 1rem;
+}
+
+.preview-header p {
+  color: #4b5563;
+  font-size: 1.1rem;
+}
+
+.preview-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.preview-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.preview-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+.card-image.vegetables {
+  background-image: url('https://images.pexels.com/photos/1458694/pexels-photo-1458694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+}
+
+.card-image.fruits {
+  background-image: url('https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+}
+
+.card-image.grains {
+  background-image: url('https://images.pexels.com/photos/1537169/pexels-photo-1537169.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+}
+
+.preview-card h3 {
+  padding: 1.5rem 1.5rem 0.5rem;
+  color: #1e40af;
+  font-size: 1.25rem;
+}
+
+.preview-card p {
+  padding: 0 1.5rem 1rem;
+  color: #4b5563;
+}
+
+.preview-link {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #1e40af;
+  font-weight: 500;
+  border-top: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.preview-link:hover {
+  background-color: #f3f4f6;
+}
+
+.preview-footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .preview-products {
+    grid-template-columns: 1fr;
+  }
+  
+  .agrimarket-preview {
+    padding: 1rem;
+  }
+}
