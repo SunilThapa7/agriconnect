@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/navbar/navbar';
 import About from './pages/about/about';
@@ -10,6 +10,8 @@ import Home from './pages/homepage/homePage';
 import PrivateRoute from './helper/privateRoute';
 import Signup from './pages/signup/signup';
 import AgriMarket from './pages/agrimarket/agriMarket';
+import Profile from './pages/profile/Profile';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 const App = () => {
   const navigate = useNavigate();
@@ -45,6 +47,12 @@ const App = () => {
   //   navigate('/');
   // };
 
+  // Add a custom AdminRoute for role-based protection
+  const AdminRoute = ({ children }) => {
+    const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+    return userData.role === 'admin' ? children : <Navigate to="/" />;
+  };
+
   return (
     <div className="app">
       <Navbar isAuthenticated={isAuthenticated} handleLogout={handleLogout} />
@@ -62,6 +70,19 @@ const App = () => {
             </PrivateRoute>
           } />
 
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          } />
+
+          <Route path="/admin" element={
+            <PrivateRoute>
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            </PrivateRoute>
+          } />
 
           {/* <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
             <Route path="/dashboard" element={<Dashboard />} />

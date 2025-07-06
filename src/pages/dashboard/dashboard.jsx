@@ -17,6 +17,7 @@ const Dashboard = () => {
             <h1>User Dashboard</h1>
             <p>Welcome to your private dashboard!</p>
             <p>Welcome Mr,{userData && userData.name}</p>
+            <button className="profile-button" onClick={() => window.location.href = '/profile'}>Go to Profile</button>
         </div>
     );
 };

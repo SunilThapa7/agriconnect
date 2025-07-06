@@ -171,6 +171,21 @@ const Signup = ({ setIsAuthenticated }) => {
                     </div>
 
                     <div className="form-group">
+                        <label htmlFor="role">Role</label>
+                        <select
+                            id="role"
+                            name="role"
+                            value={formData.role}
+                            onChange={handleChange}
+                            className={errors.role ? 'error' : ''}
+                        >
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        {errors.role && <span className="error-text">{errors.role}</span>}
+                    </div>
+
+                    <div className="form-group">
                         <label htmlFor="gender">Gender</label>
                         <select
                             id="gender"
