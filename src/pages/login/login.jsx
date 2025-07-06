@@ -34,8 +34,12 @@ const Login = ({ setIsAuthenticated }) => {
                 // 2. Update state in parent component
                 setIsAuthenticated(true);
 
-                // 3. Navigate to dashboard
-                navigate('/dashboard');
+                // 3. Navigate based on role
+                if (userData.role === 'admin') {
+                    navigate('/admin');
+                } else {
+                    navigate('/dashboard');
+                }
             } else {
                 console.error('Invalid credentials');
                 setError('Invalid credentials');

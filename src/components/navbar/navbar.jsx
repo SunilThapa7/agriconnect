@@ -3,6 +3,9 @@ import './navbar.css';
 
 const Navbar = ({ isAuthenticated, handleLogout }) => {
   const location = useLocation();
+  // Get user role from localStorage
+  const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+  const userRole = userData.role;
   return (
     <nav className="navbar">
       <div className="nav-container">
@@ -44,10 +47,10 @@ const Navbar = ({ isAuthenticated, handleLogout }) => {
           {isAuthenticated ? (
             <>              <li className="nav-item">
                 <Link 
-                  to="/dashboard" 
-                  className={`nav-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+                  to={userRole === 'admin' ? "/admin" : "/dashboard"}
+                  className={`nav-link ${location.pathname === (userRole === 'admin' ? '/admin' : '/dashboard') ? 'active' : ''}`}
                 >
-                  Dashboard
+                  {userRole === 'admin' ? 'Admin Dashboard' : 'Dashboard'}
                 </Link>
               </li>
               <li className="nav-item">
